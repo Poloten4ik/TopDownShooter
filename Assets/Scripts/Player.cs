@@ -11,6 +11,12 @@ public class Player : MonoBehaviour
 
     float nextFire;
 
+    Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Start()
     {
         
@@ -21,13 +27,18 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButton("Fire1") && nextFire <= 0)
         {
-            Instantiate(bulletPrefab,shootPosition.transform.position, transform.rotation);
-            nextFire = fireRate;
+            Shoot();
         }
         if (nextFire > 0)
         {
             nextFire -= Time.deltaTime;
-        }
-        
+        }   
+    }
+
+    private void Shoot()
+    {
+        animator.SetTrigger("Shoot");
+        Instantiate(bulletPrefab, shootPosition.transform.position, transform.rotation);
+        nextFire = fireRate;
     }
 }

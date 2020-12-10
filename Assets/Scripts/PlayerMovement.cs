@@ -6,9 +6,12 @@ public class PlayerMovement : MonoBehaviour
 {
     public int speed;
     Rigidbody2D rb;
+    Animator animator;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -28,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
         {
             direction = direction.normalized;
         }
+
+        animator.SetFloat("Speed", direction.magnitude);
+
         rb.velocity = direction.normalized * speed;
     }
 
