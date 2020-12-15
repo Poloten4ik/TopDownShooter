@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 737344898}
   - component: {fileID: 737344897}
   - component: {fileID: 737344896}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 1076924464}
   - component: {fileID: 1076924466}
   - component: {fileID: 1076924465}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Player Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 1196038398}
   - component: {fileID: 1196038397}
   - component: {fileID: 1196038396}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -781,7 +781,7 @@ GameObject:
   - component: {fileID: 1358915026}
   - component: {fileID: 1358915028}
   - component: {fileID: 1358915027}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -949,7 +949,7 @@ GameObject:
   - component: {fileID: 1919273117}
   - component: {fileID: 1919273119}
   - component: {fileID: 1919273118}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Enemy Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1032,11 +1032,6 @@ PrefabInstance:
       propertyPath: enemyHealthText
       value: 
       objectReference: {fileID: 1919273118}
-    - target: {fileID: 8194822176724822568, guid: 4879c5c6e83a89849bc87871d34f21f2,
-        type: 3}
-      propertyPath: enemyHealth
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 8194822176724822568, guid: 4879c5c6e83a89849bc87871d34f21f2,
         type: 3}
       propertyPath: prefabPickUp

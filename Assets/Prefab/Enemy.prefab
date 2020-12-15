@@ -113,14 +113,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 100
-  enemyFireDuration: 3
+  enemyFireDuration: 1
   enemyHealthText: {fileID: 0}
   enemyBulletPrefab: {fileID: 4915152715005954697, guid: c08f77fcd278c964db45d60f5b50ac24,
     type: 3}
   shootPosition: {fileID: 8194822177806847719}
   prefabPickUp: {fileID: 8803978731562381710, guid: 044e570d746c6fb41b7cd494428dce67,
     type: 3}
-  player: {fileID: 0}
 --- !u!1 &8194822177806847719
 GameObject:
   m_ObjectHideFlags: 0

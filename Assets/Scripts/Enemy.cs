@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     {
         Rotate();
     }
-    // Update is called once per frame
+
     private void Rotate()
     {
         if (isEnemyAlive)
@@ -63,19 +63,19 @@ public class Enemy : MonoBehaviour
 
     public void LoseHp(float damage)
     {
+        enemyHealth -= damage;
+        enemyHealthText.text = enemyHealth.ToString();
+
         if (enemyHealth <= 0)
         {
             animatorEnemy.SetTrigger("DeathEnemy");
+
             enemyHealthText.enabled = false;
             gameObject.GetComponent<Collider2D>().isTrigger = true;
             isEnemyAlive = false;
+
             Instantiate(prefabPickUp, transform.position, Quaternion.identity);
             StopAllCoroutines();
-        }
-        else
-        {
-            enemyHealth -= damage;
-            enemyHealthText.text = enemyHealth.ToString();
         }
     }
 }

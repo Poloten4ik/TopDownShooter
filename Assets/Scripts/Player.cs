@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
         healthText.text = health.ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetButton("Fire1") && nextFire <= 0)
@@ -45,6 +44,9 @@ public class Player : MonoBehaviour
 
     public void LoseHp(float damage)
     {
+        health -= damage;
+        healthText.text = health.ToString();
+
         if (health <= 0)
         {
             GameOver();
@@ -53,12 +55,6 @@ public class Player : MonoBehaviour
             gameObject.GetComponent<Collider2D>().isTrigger = true;
             screen.ScreenBlackOut();
         }
-
-        {
-            health -= damage;
-            healthText.text = health.ToString();
-        }
-
     }
 
     public void AddHp()
@@ -90,7 +86,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            // ничего не делать
+            return;
         }
       
     }
