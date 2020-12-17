@@ -53,5 +53,4 @@ namespace Assets.Scripts
             return obj.gameObject.CompareTag(tag);
         }
     }
-
 }
