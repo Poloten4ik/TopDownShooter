@@ -2,70 +2,66 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+namespace Assets.Scripts
 {
-    public int speed;
-
-    Rigidbody2D rb;
-    Animator animator;
-    Player player;
-
-    void Awake()
+    public class PlayerMovement : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        player = FindObjectOfType<Player>();
-    }
+        public int speed;
 
-    void Update()
-    {
-        Move();
-        Rotate();
-    }
+        Rigidbody2D rb;
+        Animator animator;
+        Player player;
 
-    private void Move()
-    {
-        if (player.isPlayerAlive)
+        void Awake()
         {
-            float inputX = Input.GetAxis("Horizontal");
-            float inputY = Input.GetAxis("Vertical");
+            rb = GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
+            player = FindObjectOfType<Player>();
+        }
 
-            Vector2 direction = new Vector2(inputX, inputY);
+        void Update()
+        {
+            Move();
+            Rotate();
+        }
 
-            if (direction.magnitude > 1)
+        private void Move()
+        {
+            if (player.isPlayerAlive)
             {
-                direction = direction.normalized;
+                float inputX = Input.GetAxis("Horizontal");
+                float inputY = Input.GetAxis("Vertical");
+
+                Vector2 direction = new Vector2(inputX, inputY);
+
+                if (direction.magnitude > 1)
+                {
+                    direction = direction.normalized;
+                }
+
+                animator.SetFloat("Speed", direction.magnitude);
+
+                rb.velocity = direction.normalized * speed;
             }
 
-            animator.SetFloat("Speed", direction.magnitude);
+            else
+            {
+                rb.velocity = Vector2.zero;
+            }
 
-            rb.velocity = direction.normalized * speed;
         }
 
-        else
+        private void Rotate()
         {
-            rb.velocity = Vector2.zero;
-            // при смерти камера начинает "падать в сторону"
-        }
-      
-    }
+            if (player.isPlayerAlive)
+            {
+                Vector3 playerPosition = transform.position;
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-    private void Rotate()
-    {
-        if (player.isPlayerAlive)
-        {
-            Vector3 playerPosition = transform.position;
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            Vector3 direction = mousePosition - playerPosition;
-            direction.z = 0;
-            transform.up = -direction;
+                Vector3 direction = mousePosition - playerPosition;
+                direction.z = 0;
+                transform.up = -direction;
+            }
         }
-
-        else
-        {
-            // ничего не делаем
-        }
-        
     }
 }

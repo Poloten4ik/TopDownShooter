@@ -3,80 +3,80 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+namespace Assets.Scripts
 {
-
-    private bool isEnemyAlive = true;
-
-    public float enemyHealth;
-    public float enemyFireDuration;
-
-    public Text enemyHealthText;
-    public Bullet enemyBulletPrefab;
-    public GameObject shootPosition;
-    public GameObject prefabPickUp;
-
-    Player player;
-    Animator animatorEnemy;
-
-    private void Awake()
+    public class Enemy : MonoBehaviour
     {
-        player = FindObjectOfType<Player>();
-        animatorEnemy = GetComponent<Animator>();
-    }
 
-    private void Start()
-    { 
-        enemyHealthText.text = enemyHealth.ToString();
-        StartCoroutine(Shoot());
-    }
-    private void Update()
-    {
-        Rotate();
-    }
+        private bool isEnemyAlive = true;
 
-    private void Rotate()
-    {
-        if (isEnemyAlive)
+        public float enemyHealth;
+        public float enemyFireDuration;
+
+        public Bullet enemyBulletPrefab;
+        public GameObject shootPosition;
+        public GameObject prefabPickUp;
+
+        Player player;
+        Animator animatorEnemy;
+
+        private void Awake()
         {
-            Vector3 enemyPosition = transform.position;
-            Vector3 direction = player.transform.position - enemyPosition;
-            direction.z = 0;
-            transform.up = -direction;
+            player = FindObjectOfType<Player>();
+            animatorEnemy = GetComponent<Animator>();
         }
-        else
+
+        private void Start()
         {
-            transform.up = transform.position;
+            StartCoroutine(Shoot());
         }
-       
-    }
-
-    private IEnumerator Shoot()
-    {
-        while (true)
+        private void Update()
         {
-            yield return new WaitForSeconds(enemyFireDuration);
-            animatorEnemy.SetTrigger("ShootEnemy");
-            Instantiate(enemyBulletPrefab, shootPosition.transform.position, transform.rotation);
+            Rotate();
         }
-    }
 
-    public void LoseHp(float damage)
-    {
-        enemyHealth -= damage;
-        enemyHealthText.text = enemyHealth.ToString();
-
-        if (enemyHealth <= 0)
+        private void Rotate()
         {
-            animatorEnemy.SetTrigger("DeathEnemy");
+            if (isEnemyAlive)
+            {
+                Vector3 enemyPosition = transform.position;
+                Vector3 direction = player.transform.position - enemyPosition;
+                direction.z = 0;
+                transform.up = -direction;
+            }
+            else
+            {
+                transform.up = transform.position;
+            }
 
-            enemyHealthText.enabled = false;
-            gameObject.GetComponent<Collider2D>().isTrigger = true;
-            isEnemyAlive = false;
+        }
 
-            Instantiate(prefabPickUp, transform.position, Quaternion.identity);
-            StopAllCoroutines();
+        private IEnumerator Shoot()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(enemyFireDuration);
+                animatorEnemy.SetTrigger("ShootEnemy");
+                Instantiate(enemyBulletPrefab, shootPosition.transform.position, transform.rotation);
+            }
+        }
+
+        public void LoseHp(float damage)
+        {
+            enemyHealth -= damage;
+
+            if (enemyHealth <= 0)
+            {
+                animatorEnemy.SetTrigger("DeathEnemy");
+
+                gameObject.GetComponent<Collider2D>().isTrigger = true;
+                isEnemyAlive = false;
+
+                Instantiate(prefabPickUp, transform.position, Quaternion.identity);
+                StopAllCoroutines();
+            }
         }
     }
 }
+
 

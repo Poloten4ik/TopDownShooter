@@ -4,90 +4,85 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+namespace Assets.Scripts
 {
-    public float fireRate = 1f;
-    public float health;
-    public bool isPlayerAlive = true;
-
-    public Bullet bulletPrefab;
-    public GameObject shootPosition;
-    public Text healthText;
-
-    float nextFire;
-
-    Animator animator;
-    Screen screen;
-
-    private void Awake()
+    public class Player : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-        screen = FindObjectOfType<Screen>();
-    }
+        public float fireRate = 1f;
+        public float health;
+        public bool isPlayerAlive = true;
 
-    void Start()
-    {
-        healthText.text = health.ToString();
-    }
+        public Bullet bulletPrefab;
+        public GameObject shootPosition;
 
-    void Update()
-    {
-        if (Input.GetButton("Fire1") && nextFire <= 0)
+        float nextFire;
+
+        Animator animator;
+        Screen screen;
+
+        private void Awake()
         {
-            Shoot();
+            animator = GetComponent<Animator>();
+            screen = FindObjectOfType<Screen>();
         }
-        if (nextFire > 0)
+
+        void Update()
         {
-            nextFire -= Time.deltaTime;
+            if (Input.GetButton("Fire1") && nextFire <= 0)
+            {
+                Shoot();
+            }
+
+            if (nextFire > 0)
+            {
+                nextFire -= Time.deltaTime;
+            }
         }
-    }
 
-    public void LoseHp(float damage)
-    {
-        health -= damage;
-        healthText.text = health.ToString();
-
-        if (health <= 0)
+        public void LoseHp(float damage)
         {
-            GameOver();
-            healthText.enabled = false;
-            isPlayerAlive = false;
-            gameObject.GetComponent<Collider2D>().isTrigger = true;
-            screen.ScreenBlackOut();
+            health -= damage;
+
+            if (health <= 0)
+            {
+                GameOver();
+                isPlayerAlive = false;
+                gameObject.GetComponent<Collider2D>().isTrigger = true;
+                screen.ScreenBlackOut();
+            }
         }
-    }
 
-    public void AddHp()
-    {
-        health += 10;
-        healthText.text = health.ToString();
-    }
-
-    private void GameOver()
-    {
-        animator.SetTrigger("Death");
-        StartCoroutine(Restart());
-    }
-
-    private IEnumerator Restart()
-    {
-       
-        yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(0);
-    }
-
-    private void Shoot()
-    {
-        if (isPlayerAlive)
+        public void AddHp()
         {
-            animator.SetTrigger("Shoot");
-            Instantiate(bulletPrefab, shootPosition.transform.position, transform.rotation);
-            nextFire = fireRate;
+            health += 10;
         }
-        else
+
+        private void GameOver()
         {
-            return;
+            animator.SetTrigger("Death");
+            StartCoroutine(Restart());
         }
-      
+
+        private IEnumerator Restart()
+        {
+            yield return new WaitForSeconds(3);
+            SceneManager.LoadScene(0);
+        }
+
+        private void Shoot()
+        {
+            if (isPlayerAlive)
+            {
+                animator.SetTrigger("Shoot");
+                Instantiate(bulletPrefab, shootPosition.transform.position, transform.rotation);
+                nextFire = fireRate;
+            }
+
+            else
+            {
+                return;
+            }
+        }
     }
+
 }

@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class Screen : MonoBehaviour
+
+namespace Assets.Scripts
 {
-    public GameObject text;
-
-    Animator animator;
-
-    private void Awake()
+    public class Screen : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
+        public GameObject text;
+
+        Animator animator;
+
+        private void Awake()
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        public void ScreenBlackOut()
+        {
+            animator.SetTrigger("BlackOut");
+            text.SetActive(true);
+        }
     }
 
-    public void ScreenBlackOut()
-    {
-        animator.SetTrigger("BlackOut");
-        text.SetActive(true);
-    }
+
 }

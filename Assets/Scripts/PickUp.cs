@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUp : MonoBehaviour
+namespace Assets.Scripts
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    public class PickUp : MonoBehaviour
     {
-        Player player = FindObjectOfType<Player>();
-
-
-        if (collision.gameObject.CompareTag("Player"))
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            player.AddHp();
-            Destroy(gameObject);
+            Player player = FindObjectOfType<Player>();
+
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                player.AddHp();
+                Destroy(gameObject);
+            }
         }
     }
+
 }

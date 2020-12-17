@@ -2,45 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Assets.Scripts
 {
-    public float speed = 20f;
-    public float damage;
-
-    Rigidbody2D rb;
-    Player player;
-    Enemy enemy;
-
-    private void Awake()
+    public class Bullet : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
+        public float speed = 20f;
+        public float damage;
 
-    // Update is called once per frame
-    private void Start()
-    {
-        rb.velocity = -transform.up * speed;
-        player = FindObjectOfType<Player>();
-        enemy = FindObjectOfType<Enemy>();
-    }
+        Rigidbody2D rb;
+        Player player;
+        Enemy enemy;
 
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (collision.gameObject.CompareTag("Player"))
+        private void Awake()
         {
-            player.LoseHp(damage);
-            Destroy(gameObject);
+            rb = GetComponent<Rigidbody2D>();
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        private void Start()
         {
-            enemy.LoseHp(damage);
+            rb.velocity = -transform.up * speed;
+        }
+
+        private void OnBecameInvisible()
+        {
             Destroy(gameObject);
         }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                player = collision.gameObject.GetComponent<Player>();
+                player.LoseHp(damage);
+                Destroy(gameObject);
+            }
+
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                enemy = collision.gameObject.GetComponent<Enemy>();
+                enemy.LoseHp(damage);
+                Destroy(gameObject);
+            }
+        }
     }
+
+    public static class Extensions
+    {
+        public static bool CompareTag(this Collision2D obj, string tag)
+        {
+            return obj.gameObject.CompareTag(tag);
+        }
+    }
+
 }
