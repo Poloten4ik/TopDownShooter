@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8706865367208645617
+--- !u!1 &3242714901807597304
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8706865367208645620}
-  - component: {fileID: 8706865367208645623}
-  - component: {fileID: 8706865367208645610}
-  - component: {fileID: 8706865367208645621}
-  - component: {fileID: 8706865367208645608}
-  - component: {fileID: 8706865367208645611}
-  - component: {fileID: 8706865367208645622}
-  m_Layer: 9
-  m_Name: Zombie1_female
-  m_TagString: Enemy
+  - component: {fileID: 3242714901807597308}
+  - component: {fileID: 3242714901807597309}
+  - component: {fileID: 3242714901807597310}
+  - component: {fileID: 3242714901807597311}
+  - component: {fileID: 3242714901807597187}
+  m_Layer: 0
+  m_Name: Bomb
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8706865367208645620
+--- !u!4 &3242714901807597308
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706865367208645617}
+  m_GameObject: {fileID: 3242714901807597304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.7, y: 2.14, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8706865367208645623
+--- !u!212 &3242714901807597309
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706865367208645617}
+  m_GameObject: {fileID: 3242714901807597304}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -72,106 +70,74 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1856919523
-  m_SortingLayer: -3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 28b91523703c6234fb268f668ee5a69b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c30f25800953d84aa500583631a68ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.84, y: 4.48}
+  m_Size: {x: 2.93, y: 2.93}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &8706865367208645610
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!61 &3242714901807597310
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706865367208645617}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &8706865367208645621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706865367208645617}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f171895f9f755e049bb9ea9d8866acff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  isAlive: 1
-  isFollow: 0
-  isPositionStart: 1
-  startPosition: {x: 0, y: 0, z: 0}
-  zombiePosition: {x: 0, y: 0, z: 0}
---- !u!114 &8706865367208645608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706865367208645617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9bd50a47b4fc77408d09d5cc649b38a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveRadius: 20
-  attackRadius: 4
-  followRadius: 25
-  damage: 25
-  health: 100
-  attackRate: 1
-  activeState: 0
-  startPosition: {x: 0, y: 0, z: 0}
---- !u!58 &8706865367208645611
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706865367208645617}
+  m_GameObject: {fileID: 3242714901807597304}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07, y: 0.29}
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.93, y: 2.93}
+    newSize: {x: 2.93, y: 2.93}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 1.72
---- !u!95 &8706865367208645622
+  m_Size: {x: 2.93, y: 2.93}
+  m_EdgeRadius: 0
+--- !u!114 &3242714901807597311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3242714901807597304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57350dfaa9fbf849ad101c0fa163951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionRadius: 100
+  damage: 50
+  damageLayer:
+    serializedVersion: 2
+    m_Bits: 768
+--- !u!95 &3242714901807597187
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706865367208645617}
+  m_GameObject: {fileID: 3242714901807597304}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: c96794b6c3122d641b492226f80aff67, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9594b10038631a343ac5136f3f9806b6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

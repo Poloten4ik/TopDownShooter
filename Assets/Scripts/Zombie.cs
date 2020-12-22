@@ -27,7 +27,6 @@ namespace Assets.Scripts
         public ZombieState activeState;
         private ZombieMovement movement;
         private Rigidbody2D rb;
-        private bool isPositionStart = true;
 
         public Vector3 startPosition;
 
@@ -132,7 +131,7 @@ namespace Assets.Scripts
 
         }
 
-        private void Attack()
+        public void Attack()
         {
             if (movement.isAlive)
             {
@@ -140,6 +139,8 @@ namespace Assets.Scripts
                 nextAttack = attackRate;
             }
         }
+
+
 
         public void LoseHp(float damage)
         {

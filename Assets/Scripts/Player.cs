@@ -9,7 +9,7 @@ namespace Assets.Scripts
     public class Player : MonoBehaviour
     {
         public float fireRate = 1f;
-        public float health;
+        public float health = 100;
         public bool isPlayerAlive = true;
 
         public Bullet bulletPrefab;
@@ -18,12 +18,10 @@ namespace Assets.Scripts
         float nextFire;
 
         private Animator animator;
-        private Screen screen;
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
-            screen = FindObjectOfType<Screen>();
         }
 
         void Update()
@@ -48,7 +46,6 @@ namespace Assets.Scripts
                 GameOver();
                 isPlayerAlive = false;
                 gameObject.GetComponent<Collider2D>().isTrigger = true;
-                screen.ScreenBlackOut();
             }
         }
 
