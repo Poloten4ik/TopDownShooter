@@ -22,6 +22,4 @@ namespace Assets.Scripts
             text.SetActive(true);
         }
     }
-
-
 }

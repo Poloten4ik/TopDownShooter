@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Items;
 
 namespace Assets.Scripts
 {
@@ -9,9 +10,9 @@ namespace Assets.Scripts
         public float speed = 20f;
         public float damage;
 
-        Rigidbody2D rb;
-        Player player;
-        Enemy enemy;
+        private Rigidbody2D rb;
+        private Player player;
+        private Enemy enemy;
 
         private void Awake()
         {
@@ -27,22 +28,10 @@ namespace Assets.Scripts
         {
             Destroy(gameObject);
         }
-        private void OnCollisionEnter2D(Collision2D collision)
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                player = collision.gameObject.GetComponent<Player>();
-                player.LoseHp(damage);
-                Destroy(gameObject);
-            }
-
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                enemy = collision.gameObject.GetComponent<Enemy>();
-                enemy.LoseHp(damage);
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);  
         }
     }
 

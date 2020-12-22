@@ -10,7 +10,6 @@ namespace Assets.Scripts
         {
             Player player = FindObjectOfType<Player>();
 
-
             if (collision.gameObject.CompareTag("Player"))
             {
                 player.AddHp();
@@ -18,5 +17,4 @@ namespace Assets.Scripts
             }
         }
     }
-
 }

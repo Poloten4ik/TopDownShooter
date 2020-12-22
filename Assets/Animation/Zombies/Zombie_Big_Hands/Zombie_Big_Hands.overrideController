@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Zombie_Big_Hands
+  m_Controller: {fileID: 9100000, guid: 40c60a89a8008ad4196e6e8a569997c8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: eb293d56b4c6d4d419d860d874cb150b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 47b7bc62d934efb4c9b52c6dd2157b9e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 23f186cf7a143ba4aaccb2111025fc0f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b3ced86f313d200438b0bd9f6e0eb603, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f14203054c1e57d4d8c1a1cc8f671b3b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aa4192221ce55d843b7c254386cb9b42, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 36ca54da0f16d644aa043703217eb70b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d8cbac1e9b910df4895950cbe2cd9962, type: 2}

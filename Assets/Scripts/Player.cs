@@ -17,8 +17,8 @@ namespace Assets.Scripts
 
         float nextFire;
 
-        Animator animator;
-        Screen screen;
+        private Animator animator;
+        private Screen screen;
 
         private void Awake()
         {
@@ -77,12 +77,6 @@ namespace Assets.Scripts
                 Instantiate(bulletPrefab, shootPosition.transform.position, transform.rotation);
                 nextFire = fireRate;
             }
-
-            else
-            {
-                return;
-            }
         }
     }
-
 }

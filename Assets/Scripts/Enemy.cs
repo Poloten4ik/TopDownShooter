@@ -30,6 +30,7 @@ namespace Assets.Scripts
         {
             StartCoroutine(Shoot());
         }
+
         private void Update()
         {
             Rotate();

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Zombie2_female_Death
+  m_Name: Bomb
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,17 +20,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 233b6574280884c479400e9e92a3e47b, type: 3}
+      value: {fileID: 21300000, guid: a76d3cc0d5db80f4b930ebb35c7008f0, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 94df9e4f6c1cec1479a8babda6cfccec, type: 3}
+      value: {fileID: 21300000, guid: f4db1d23bcbe3c14d93b9d48e7061767, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: 805acd483f8be5848bef68d86084ebba, type: 3}
+      value: {fileID: 21300000, guid: 285746a8086b342418fb7ad08a653c6b, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: 4f51973397f6f8a4cbdbcee7e6ba6c75, type: 3}
+      value: {fileID: 21300000, guid: bfa2714ceeca47243bf45b59fde38c15, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: d02dc3023b9a7274bbc1353b06753197, type: 3}
+      value: {fileID: 21300000, guid: f1b98a6a85e2cc4409e54ccd25f9b592, type: 3}
     - time: 0.41666666
-      value: {fileID: 21300000, guid: 6adf55d28718de544bd9ecb20c620f2b, type: 3}
+      value: {fileID: 21300000, guid: 727c46ae286202642ad80cd857b25476, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,12 +50,12 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 233b6574280884c479400e9e92a3e47b, type: 3}
-    - {fileID: 21300000, guid: 94df9e4f6c1cec1479a8babda6cfccec, type: 3}
-    - {fileID: 21300000, guid: 805acd483f8be5848bef68d86084ebba, type: 3}
-    - {fileID: 21300000, guid: 4f51973397f6f8a4cbdbcee7e6ba6c75, type: 3}
-    - {fileID: 21300000, guid: d02dc3023b9a7274bbc1353b06753197, type: 3}
-    - {fileID: 21300000, guid: 6adf55d28718de544bd9ecb20c620f2b, type: 3}
+    - {fileID: 21300000, guid: a76d3cc0d5db80f4b930ebb35c7008f0, type: 3}
+    - {fileID: 21300000, guid: f4db1d23bcbe3c14d93b9d48e7061767, type: 3}
+    - {fileID: 21300000, guid: 285746a8086b342418fb7ad08a653c6b, type: 3}
+    - {fileID: 21300000, guid: bfa2714ceeca47243bf45b59fde38c15, type: 3}
+    - {fileID: 21300000, guid: f1b98a6a85e2cc4409e54ccd25f9b592, type: 3}
+    - {fileID: 21300000, guid: 727c46ae286202642ad80cd857b25476, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -80,4 +80,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.41666666
+    functionName: DestroyMe
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

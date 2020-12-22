@@ -8,25 +8,37 @@ namespace Assets.Scripts
     {
         public int speed;
 
-        Rigidbody2D rb;
-        Animator animator;
-        Player player;
+        private Rigidbody2D rb;
+        private Animator animator;
+        private Player player;
 
-        void Awake()
+        [HideInInspector]
+        public bool isAlive = true;
+
+        [HideInInspector]
+        public bool isFollow = false;
+
+        [HideInInspector]
+        public bool isPositionStart = true;
+
+        public Vector3 startPosition;
+        public Vector3 zombiePosition;
+
+        private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
+            startPosition = transform.position;
         }
 
         private void Start()
         {
             player = FindObjectOfType<Player>();
+            StartPosition();
         }
 
-        void Update()
+        private void Update()
         {
-            
-
             Move();
             Rotate();
         }
@@ -35,40 +47,61 @@ namespace Assets.Scripts
         {
             Vector3 zombiePosition = transform.position;
             Vector3 playerPosition = player.transform.position;
-
             Vector3 direction = playerPosition - zombiePosition;
-
-            if (player.isPlayerAlive)
+            if (isAlive)
             {
-                
-                if (direction.magnitude > 1)
+                if (player.isPlayerAlive && isFollow)
                 {
-                    direction = direction.normalized;
+
+                    if (direction.magnitude > 1)
+                    {
+                        direction = direction.normalized;
+                    }
+
+                    animator.SetFloat("Speed", direction.magnitude);
+                    rb.velocity = direction.normalized * speed;
                 }
 
-                animator.SetFloat("Speed", direction.magnitude);
+                else if (!isFollow)
+                {
+                    Vector3 direction2 = zombiePosition - startPosition;
 
-                rb.velocity = direction.normalized * speed;
+                    animator.SetFloat("Speed", direction2.magnitude);
+                    rb.velocity = -direction2.normalized * speed;
+                }
             }
-
-            else
-            {
-                rb.velocity = Vector2.zero;
-            }
-
         }
 
         private void Rotate()
         {
-            Vector3 zombiePosition = transform.position;
-            Vector3 playerPosition = player.transform.position;
-
-            Vector3 direction = playerPosition - zombiePosition;
-
-            if (player.isPlayerAlive)
+            if (isAlive)
             {
-                direction.z = 0;
-                transform.up = -direction;
+                Vector3 zombiePosition = transform.position;
+                Vector3 playerPosition = player.transform.position;
+
+                Vector3 direction = playerPosition - zombiePosition;
+
+                if (player.isPlayerAlive && isFollow)
+                {
+                    direction.z = 0;
+                    transform.up = -direction;
+                }
+                else if (!isFollow)
+                {
+                    Vector3 direction2 = zombiePosition - startPosition;
+                    transform.up = direction2;
+                    direction2.z = 0;
+                }
+            }
+        }
+
+        public void StartPosition()
+        {
+            Vector3 zombiePosition = transform.position;
+
+            if (Vector3.Distance(zombiePosition, startPosition) < 0.2f)
+            {
+              //TODO
             }
         }
 

@@ -1,4 +1,4 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,14 +12,14 @@ namespace Assets.Scripts
         Animator animator;
         Player player;
 
-        void Awake()
+        private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             player = FindObjectOfType<Player>();
         }
 
-        void Update()
+        private void Update()
         {
             Move();
             Rotate();
