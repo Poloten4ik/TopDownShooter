@@ -16,9 +16,13 @@ namespace Assets.Scripts
         private float damage = 25;
         [SerializeField]
         private float health = 100;
+        [HideInInspector]
+        public bool isAlive = true;
         [SerializeField]
         private float attackRate = 1f;
         private float nextAttack;
+
+        private float distanceToPlayer;
 
         private Player player;
         private Bullet bullet;
@@ -33,7 +37,8 @@ namespace Assets.Scripts
         public enum ZombieState
         {
             STAND,
-            MOVE,
+            RETURN,
+            MOVE_TO_PLAYER,
             ATTACK,
             DEATH
         }
@@ -53,68 +58,29 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if (!isAlive)
+            {
+                activeState = ZombieState.DEATH;
+            }
+
+            distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
             switch (activeState)
             {
                 case ZombieState.STAND:
-                    if (distance < moveRadius)
-                    {
-                        activeState = ZombieState.MOVE;
-                        movement.isFollow = true;
-                        return;
-                    }
-                    else if (health <= 0)
-                    {
-                        activeState = ZombieState.DEATH;
-                        return;
-                    }
-                    animator.SetTrigger("Idle");
-                    movement.enabled = false;
+                    DoStand();
                     break;
 
-                case ZombieState.MOVE:
-                    if (distance < attackRadius)
-                    {
-                        activeState = ZombieState.ATTACK;
-                        return;
-                    }
-                    else if (distance > followRadius)
-                    {
-                        activeState = ZombieState.MOVE;
-                        movement.isFollow = false;
-                        return;
-                    }
-                    else if (!movement.isFollow)
-                    {
-                        activeState = ZombieState.STAND;
-                    }
-                    else if (health <= 0)
-                    {
-                        activeState = ZombieState.DEATH;
-                        return;
-                    }
-                    movement.enabled = true;
+                case ZombieState.RETURN:
+                    DoReturn();
+                    break;
+
+                case ZombieState.MOVE_TO_PLAYER:
+                    DoMove();
                     break;
 
                 case ZombieState.ATTACK:
-                    if (distance > attackRadius)
-                    {
-                        activeState = ZombieState.MOVE;
-                        return;
-                    }
-                    else if (nextAttack <= 0)
-                    {
-                        Attack();
-                        return;
-                    }
-                    else if (health <= 0)
-                    {
-                        activeState = ZombieState.DEATH;
-                        return;
-                    }
-                    animator.SetTrigger("Shoot");
-                    movement.enabled = false;
+                    DoAttack();
                     break;
 
                 case ZombieState.DEATH:
@@ -122,32 +88,82 @@ namespace Assets.Scripts
                     movement.enabled = false;
                     return;
             }
-
-
-            if (nextAttack > 0)
-            {
-                nextAttack -= Time.deltaTime;
-            }
-
         }
 
-        public void Attack()
+        private void DoStand()
         {
-            if (movement.isAlive)
+            if (distanceToPlayer < moveRadius)
             {
-                player.LoseHp(damage);
+                activeState = ZombieState.MOVE_TO_PLAYER;
+                return;
+            }
+            animator.SetTrigger("Idle");
+            movement.enabled = false;
+        }
+
+        private void DoReturn()
+        {
+            if (distanceToPlayer < moveRadius)
+            {
+                activeState = ZombieState.MOVE_TO_PLAYER;
+                return;
+            }
+
+            float distanceToStart = Vector3.Distance(transform.position, startPosition);
+            if (distanceToStart <= 0.05f)
+            {
+                activeState = ZombieState.STAND;
+                return;
+            }
+
+            movement.targetPosition = startPosition;
+            movement.enabled = true;
+
+        }
+        private void DoMove()
+        {
+            if (distanceToPlayer < attackRadius)
+            {
+                activeState = ZombieState.ATTACK;
+                return;
+            }
+            if (distanceToPlayer > followRadius)
+            {
+                activeState = ZombieState.RETURN;
+                return;
+            }
+            movement.targetPosition = player.transform.position;
+            movement.enabled = true;
+        }
+
+        private void DoAttack()
+        {
+            if (distanceToPlayer > attackRadius)
+            {
+                activeState = ZombieState.MOVE_TO_PLAYER;
+                return;
+            }
+            movement.enabled = false;
+
+            nextAttack -= Time.deltaTime;
+            if (nextAttack <= 0)
+            {
+                animator.SetTrigger("Shoot");
                 nextAttack = attackRate;
             }
         }
 
-
+        private void DamageToPlayer()
+        {
+            player.LoseHp(damage);
+        }
 
         public void LoseHp(float damage)
         {
             health -= damage;
             if (health <= 0)
             {
-                movement.isAlive = false;
+                isAlive = false;
                 gameObject.GetComponent<Collider2D>().enabled = false;
             }
         }

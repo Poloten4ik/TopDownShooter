@@ -120,7 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  isAlive: 1
   isFollow: 0
   isPositionStart: 1
   startPosition: {x: 0, y: 0, z: 0}
@@ -140,8 +139,9 @@ MonoBehaviour:
   moveRadius: 20
   attackRadius: 4
   followRadius: 25
-  damage: 25
+  damage: 12.5
   health: 100
+  isAlive: 1
   attackRate: 1
   activeState: 0
   startPosition: {x: 0, y: 0, z: 0}

@@ -99,8 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  isAlive: 1
   isFollow: 0
+  isPositionStart: 1
+  startPosition: {x: 0, y: 0, z: 0}
+  zombiePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &917228214861304583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,8 +119,11 @@ MonoBehaviour:
   attackRadius: 6
   followRadius: 40
   damage: 25
-  health: 150
+  health: 100
+  isAlive: 1
   attackRate: 1
+  activeState: 0
+  startPosition: {x: 0, y: 0, z: 0}
 --- !u!50 &917228214861304584
 Rigidbody2D:
   serializedVersion: 4

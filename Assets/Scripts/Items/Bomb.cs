@@ -8,17 +8,15 @@ namespace Assets.Scripts.Items
     public class Bomb : MonoBehaviour
     {
         public float explosionRadius;
-        [SerializeField]
         public float damage;
+        public GameObject explosionPrefab;
         private Player player;
         private Zombie zombie;
-        private Animator animator;
-
         public LayerMask damageLayer;
 
         private void Awake()
         {
-            animator = GetComponent<Animator>();
+
         }
 
         private void Start()
@@ -27,22 +25,14 @@ namespace Assets.Scripts.Items
         }
 
         private void Explode()
-        {  
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, damageLayer);
             foreach (Collider2D collider in colliders)
             {
-                if (collider.gameObject.CompareTag("Player"))
-                {
-                    player.LoseHp(damage);
-                }
-                if (collider.gameObject.CompareTag("Enemy"))
-                {
-                    zombie = collider.GetComponent<Zombie>();
-                    zombie.LoseHp(damage);
-                }
+                collider.gameObject.SendMessage("LoseHp", damage);
             }
-
-            animator.SetTrigger("Explosion");
            
         }
 
@@ -58,12 +48,9 @@ namespace Assets.Scripts.Items
             if (collision.gameObject.CompareTag("Bullet"))
             {
                 Explode();
+                Destroy(gameObject);
             }
         }
 
-        public void DestroyMe()
-        {
-            Destroy(gameObject);
-        }
     }
 }
