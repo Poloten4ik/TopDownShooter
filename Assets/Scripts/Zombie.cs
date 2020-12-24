@@ -84,66 +84,89 @@ namespace Assets.Scripts
                     break;
 
                 case ZombieState.DEATH:
-                    animator.SetTrigger("Death");
-                    movement.enabled = false;
-                    return;
+                    DoDeath();
+                    break;
             }
+        }
+
+        private void ChangeState(ZombieState newState)
+        {
+            switch (newState)
+            {
+                case ZombieState.STAND:
+                    movement.enabled = false;
+                    break;
+
+                case ZombieState.RETURN:
+                    movement.targetPosition = startPosition;
+                    movement.enabled = true;
+                    break;
+
+                case ZombieState.MOVE_TO_PLAYER:
+                    
+                    movement.enabled = true;
+                    break;
+
+                case ZombieState.ATTACK:
+                    movement.enabled = false;
+                    break;
+
+                case ZombieState.DEATH:
+                    break;
+            }
+            activeState = newState;
         }
 
         private void DoStand()
         {
             if (distanceToPlayer < moveRadius)
             {
-                activeState = ZombieState.MOVE_TO_PLAYER;
+                ChangeState(ZombieState.MOVE_TO_PLAYER);
                 return;
             }
             animator.SetTrigger("Idle");
-            movement.enabled = false;
+          
         }
 
         private void DoReturn()
         {
             if (distanceToPlayer < moveRadius)
             {
-                activeState = ZombieState.MOVE_TO_PLAYER;
+                ChangeState(ZombieState.MOVE_TO_PLAYER);
                 return;
             }
 
             float distanceToStart = Vector3.Distance(transform.position, startPosition);
             if (distanceToStart <= 0.05f)
             {
-                activeState = ZombieState.STAND;
+                ChangeState(ZombieState.STAND);
                 return;
             }
-
-            movement.targetPosition = startPosition;
-            movement.enabled = true;
-
         }
+
         private void DoMove()
         {
             if (distanceToPlayer < attackRadius)
             {
-                activeState = ZombieState.ATTACK;
+                ChangeState(ZombieState.ATTACK);
                 return;
             }
             if (distanceToPlayer > followRadius)
             {
-                activeState = ZombieState.RETURN;
+                ChangeState(ZombieState.RETURN);
                 return;
             }
             movement.targetPosition = player.transform.position;
-            movement.enabled = true;
         }
 
         private void DoAttack()
         {
             if (distanceToPlayer > attackRadius)
             {
-                activeState = ZombieState.MOVE_TO_PLAYER;
+                ChangeState(ZombieState.MOVE_TO_PLAYER);
                 return;
             }
-            movement.enabled = false;
+          
 
             nextAttack -= Time.deltaTime;
             if (nextAttack <= 0)
@@ -151,6 +174,12 @@ namespace Assets.Scripts
                 animator.SetTrigger("Shoot");
                 nextAttack = attackRate;
             }
+        }
+
+        private void DoDeath()
+        {
+            animator.SetTrigger("Death");
+            movement.enabled = false;
         }
 
         private void DamageToPlayer()
