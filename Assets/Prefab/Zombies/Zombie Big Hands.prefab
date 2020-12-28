@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 917228214861304584}
   - component: {fileID: 917228214861304587}
   - component: {fileID: 917228214861304585}
+  - component: {fileID: 1132898524}
   m_Layer: 9
   m_Name: Zombie Big Hands
   m_TagString: Enemy
@@ -101,8 +102,8 @@ MonoBehaviour:
   speed: 10
   isFollow: 0
   isPositionStart: 1
-  startPosition: {x: 0, y: 0, z: 0}
   zombiePosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &917228214861304583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,11 +120,15 @@ MonoBehaviour:
   attackRadius: 6
   followRadius: 40
   damage: 25
-  health: 100
+  health: 200
   isAlive: 1
   attackRate: 1
   activeState: 0
   startPosition: {x: 0, y: 0, z: 0}
+  pickUps:
+  - {fileID: 8803978731562381710, guid: 044e570d746c6fb41b7cd494428dce67, type: 3}
+  - {fileID: 6511440401108826010, guid: a1bfd5c608fb45b43b643e55837b9c25, type: 3}
+  pickUpChange: 5
 --- !u!50 &917228214861304584
 Rigidbody2D:
   serializedVersion: 4
@@ -180,3 +185,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1132898524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917228214861304582}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0ae3958310e8b43ada8c277c78cd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyDelay: 2

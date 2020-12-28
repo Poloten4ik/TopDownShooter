@@ -10,6 +10,7 @@ namespace Assets.Scripts
     {
         public float fireRate = 1f;
         public float health = 100;
+        public float yourMoney = 0;
         public bool isPlayerAlive = true;
 
         public Bullet bulletPrefab;
@@ -49,9 +50,14 @@ namespace Assets.Scripts
             }
         }
 
-        public void AddHp()
+        public void AddHp(float hp)
         {
-            health += 10;
+            health += hp;
+        }
+        
+        public void AddMoney(float money)
+        {
+            yourMoney += money;
         }
 
         private void GameOver()

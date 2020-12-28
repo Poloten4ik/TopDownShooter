@@ -22,23 +22,32 @@ namespace Assets.Scripts
         private float attackRate = 1f;
         private float nextAttack;
 
+
         private float distanceToPlayer;
 
         private Player player;
         private Bullet bullet;
         private Animator animator;
+        private AutoDestroyer autoDestroyer;
 
         public ZombieState activeState;
         private ZombieMovement movement;
         private Rigidbody2D rb;
 
+        private ZombieSpawner zombieSpawner;
+
         public Vector3 startPosition;
+
+        public GameObject[] pickUps;
+
+        [Range (0, 100)]
+        public float pickUpChange;
 
         public enum ZombieState
         {
-            STAND,
-            RETURN,
+            //MOVE,
             MOVE_TO_PLAYER,
+            //RETURN,
             ATTACK,
             DEATH
         }
@@ -47,36 +56,37 @@ namespace Assets.Scripts
             animator = GetComponent<Animator>();
             movement = GetComponent<ZombieMovement>();
             rb = GetComponent<Rigidbody2D>();
+            autoDestroyer = GetComponent<AutoDestroyer>();
+
         }
 
         private void Start()
         {
             player = FindObjectOfType<Player>();
-            activeState = ZombieState.STAND;
-            startPosition = transform.position;
+            ChangeState(ZombieState.MOVE_TO_PLAYER);
         }
 
         private void Update()
         {
             if (!isAlive)
             {
-                activeState = ZombieState.DEATH;
+                DoDeath();
             }
 
             distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
             switch (activeState)
             {
-                case ZombieState.STAND:
-                    DoStand();
-                    break;
+                //case ZombieState.MOVE:
+                //    DoMove();
+                //    break;
 
-                case ZombieState.RETURN:
-                    DoReturn();
-                    break;
+                //case ZombieState.RETURN:
+                //    DoReturn();
+                //    break;
 
                 case ZombieState.MOVE_TO_PLAYER:
-                    DoMove();
+                    DoMoveToPlayer();
                     break;
 
                 case ZombieState.ATTACK:
@@ -89,21 +99,17 @@ namespace Assets.Scripts
             }
         }
 
-        private void ChangeState(ZombieState newState)
+        public void ChangeState(ZombieState newState)
         {
             switch (newState)
-            {
-                case ZombieState.STAND:
-                    movement.enabled = false;
-                    break;
 
-                case ZombieState.RETURN:
-                    movement.targetPosition = startPosition;
-                    movement.enabled = true;
-                    break;
+            {
+                //case ZombieState.RETURN:
+                //    movement.targetPosition = startPosition;
+                //    movement.enabled = true;
+                //    break;
 
                 case ZombieState.MOVE_TO_PLAYER:
-                    
                     movement.enabled = true;
                     break;
 
@@ -112,52 +118,36 @@ namespace Assets.Scripts
                     break;
 
                 case ZombieState.DEATH:
+                    animator.SetTrigger("Death");
+                    movement.enabled = false;
                     break;
             }
             activeState = newState;
         }
 
-        private void DoStand()
-        {
-            if (distanceToPlayer < moveRadius)
-            {
-                ChangeState(ZombieState.MOVE_TO_PLAYER);
-                return;
-            }
-            animator.SetTrigger("Idle");
-          
-        }
-
-        private void DoReturn()
-        {
-            if (distanceToPlayer < moveRadius)
-            {
-                ChangeState(ZombieState.MOVE_TO_PLAYER);
-                return;
-            }
-
-            float distanceToStart = Vector3.Distance(transform.position, startPosition);
-            if (distanceToStart <= 0.05f)
-            {
-                ChangeState(ZombieState.STAND);
-                return;
-            }
-        }
-
-        private void DoMove()
+        private void DoMoveToPlayer()
         {
             if (distanceToPlayer < attackRadius)
             {
                 ChangeState(ZombieState.ATTACK);
                 return;
             }
-            if (distanceToPlayer > followRadius)
-            {
-                ChangeState(ZombieState.RETURN);
-                return;
-            }
+            //if (distanceToPlayer > followRadius)
+            //{
+            //    ChangeState(ZombieState.RETURN);
+            //    return;
+            //}
             movement.targetPosition = player.transform.position;
         }
+
+        //private void DoMove()
+        //{ 
+        //    if (distanceToPlayer < moveRadius)
+        //    {
+        //        activeState = ZombieState.MOVE_TO_PLAYER;
+        //    }
+           
+        //}
 
         private void DoAttack()
         {
@@ -167,7 +157,6 @@ namespace Assets.Scripts
                 return;
             }
           
-
             nextAttack -= Time.deltaTime;
             if (nextAttack <= 0)
             {
@@ -178,9 +167,35 @@ namespace Assets.Scripts
 
         private void DoDeath()
         {
-            animator.SetTrigger("Death");
-            movement.enabled = false;
+            ChangeState(ZombieState.DEATH);
+            autoDestroyer.enabled = true;
         }
+
+        private void PickUpChange()
+        {
+            float pickUpChangeRandom = Random.Range(0, 100);
+            if (pickUpChangeRandom < pickUpChange)
+            {
+                int r = Random.Range(0, pickUps.Length);
+                Instantiate(pickUps[r], transform.position, Quaternion.identity);
+            }
+            
+        }
+        //private void DoReturn()
+        //{
+        //    if (distanceToPlayer < moveRadius)
+        //    {
+        //        ChangeState(ZombieState.MOVE_TO_PLAYER);
+        //        return;
+        //    }
+
+        //    float distanceToStart = Vector3.Distance(transform.position, startPosition);
+        //    if (distanceToStart <= 0.05f)
+        //    {
+        //        ChangeState(ZombieState.MOVE_TO_PLAYER);
+        //        return;
+        //    }
+        //}
 
         private void DamageToPlayer()
         {
@@ -192,6 +207,7 @@ namespace Assets.Scripts
             health -= damage;
             if (health <= 0)
             {
+                PickUpChange();
                 isAlive = false;
                 gameObject.GetComponent<Collider2D>().enabled = false;
             }

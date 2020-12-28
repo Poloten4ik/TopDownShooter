@@ -18,21 +18,25 @@ namespace Assets.Scripts
         [HideInInspector]
         public bool isPositionStart = true;
 
-        public Vector3 startPosition;
         public Vector3 zombiePosition;
         public Vector3 targetPosition;
+
+        private ZombieSpawner zombieSpawner;
+        private Player player;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
-            startPosition = transform.position;
             zombie = GetComponent<Zombie>();
+     
         }
 
         private void Start()
         {
-
+            //zombieSpawner = FindObjectOfType<ZombieSpawner>();
+            player = FindObjectOfType<Player>();
+           
         }
 
         private void Update()
@@ -54,6 +58,20 @@ namespace Assets.Scripts
             animator.SetFloat("Speed", direction.magnitude);
 
             rb.velocity = direction * speed;
+
+            //if (Vector2.Distance(transform.position, zombieSpawner.wayPoints[zombieSpawner.wayPointIndex].position) < 3f)
+            //{
+            //    if (zombieSpawner.wayPointIndex < zombieSpawner.wayPoints.Length - 1)
+            //    {
+            //        zombieSpawner.wayPointIndex += 1;
+            //        targetPosition = zombieSpawner.wayPoints[zombieSpawner.wayPointIndex].position;
+            //    }
+            //    else if (zombieSpawner.wayPointIndex >= zombieSpawner.wayPoints.Length)
+            //    {
+            //        zombie.ChangeState(Zombie.ZombieState.MOVE_TO_PLAYER);
+            //    }
+
+            //}
         }
 
         private void Rotate()

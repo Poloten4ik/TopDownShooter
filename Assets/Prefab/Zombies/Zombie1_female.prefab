@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8706865367208645608}
   - component: {fileID: 8706865367208645611}
   - component: {fileID: 8706865367208645622}
+  - component: {fileID: -3410847763948946191}
   m_Layer: 9
   m_Name: Zombie1_female
   m_TagString: Enemy
@@ -98,7 +99,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -114,16 +115,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8706865367208645617}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f171895f9f755e049bb9ea9d8866acff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   isFollow: 0
   isPositionStart: 1
-  startPosition: {x: 0, y: 0, z: 0}
   zombiePosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8706865367208645608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,14 +138,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveRadius: 20
-  attackRadius: 4
+  attackRadius: 7.63
   followRadius: 25
   damage: 12.5
-  health: 100
+  health: 50
   isAlive: 1
   attackRate: 1
   activeState: 0
   startPosition: {x: 0, y: 0, z: 0}
+  pickUps:
+  - {fileID: 8803978731562381710, guid: 044e570d746c6fb41b7cd494428dce67, type: 3}
+  - {fileID: 6511440401108826010, guid: a1bfd5c608fb45b43b643e55837b9c25, type: 3}
+  pickUpChange: 5
 --- !u!58 &8706865367208645611
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -180,3 +185,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-3410847763948946191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706865367208645617}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0ae3958310e8b43ada8c277c78cd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyDelay: 2
