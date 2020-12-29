@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Assets.Scripts
 {
     public class Zombie : MonoBehaviour
     {
+        public Action HealthChanged = delegate { };
+
         [SerializeField]
         private float moveRadius = 10;
         [SerializeField]
@@ -14,8 +17,7 @@ namespace Assets.Scripts
         private float followRadius = 8;
         [SerializeField]
         private float damage = 25;
-        [SerializeField]
-        private float health = 100;
+        public float health = 100;
         [HideInInspector]
         public bool isAlive = true;
         [SerializeField]
@@ -173,10 +175,10 @@ namespace Assets.Scripts
 
         private void PickUpChange()
         {
-            float pickUpChangeRandom = Random.Range(0, 100);
+            float pickUpChangeRandom = UnityEngine.Random.Range(0, 100);
             if (pickUpChangeRandom < pickUpChange)
             {
-                int r = Random.Range(0, pickUps.Length);
+                int r = UnityEngine.Random.Range(0, pickUps.Length);
                 Instantiate(pickUps[r], transform.position, Quaternion.identity);
             }
             
@@ -211,6 +213,7 @@ namespace Assets.Scripts
                 isAlive = false;
                 gameObject.GetComponent<Collider2D>().enabled = false;
             }
+            HealthChanged();
         }
 
         private void OnDrawGizmos()

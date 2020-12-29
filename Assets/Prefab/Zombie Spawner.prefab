@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wayPointIndex: 0
   spawnDuration: 0.3
-  numberOfZombies: 50
+  numberOfZombies: 1
   zombiePrefab: {fileID: 8706865367208645617, guid: 8099f7129410b474e9502679266e03f9,
     type: 3}
   wayPoints:
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wayPointIndex: 0
   spawnDuration: 0.3
-  numberOfZombies: 50
+  numberOfZombies: 1
   zombiePrefab: {fileID: 8706865367208645617, guid: 8099f7129410b474e9502679266e03f9,
     type: 3}
   wayPoints:

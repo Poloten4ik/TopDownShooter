@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionRadius: 100
-  damage: 100
+  damage: 50
   explosionPrefab: {fileID: 8700347399083294631, guid: 86e8955324ceec048abae60347e97658,
     type: 3}
   damageLayer:

@@ -35,6 +35,7 @@ namespace Assets.Scripts
         }
     }
 
+    // TODO понять как работает 
     public static class Extensions
     {
         public static bool CompareTag(this Collision2D obj, string tag)
