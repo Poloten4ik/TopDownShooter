@@ -24,6 +24,8 @@ namespace Assets.Scripts
         private float attackRate = 1f;
         private float nextAttack;
 
+        public int viewAngle = 90;
+
 
         private float distanceToPlayer;
 
@@ -146,9 +148,17 @@ namespace Assets.Scripts
                 return false;
             }
 
+
+
             //проверям препятствия
             Vector3 directionToPlayer = player.transform.position - transform.position;
             Debug.DrawRay(transform.position, directionToPlayer, Color.red);
+
+            float angle = Vector3.Angle(-transform.up, directionToPlayer);
+            if (angle > viewAngle/2)
+            {
+                return false;
+            }
 
             LayerMask layerMask = LayerMask.GetMask("Obstacles");
             RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, directionToPlayer.magnitude, layerMask);

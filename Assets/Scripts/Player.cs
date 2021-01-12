@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 namespace Assets.Scripts
 {
     public class Player : MonoBehaviour
     {
+        public Action HealthChanged = delegate { };
+
         public float fireRate = 1f;
         public float health = 100;
         public float yourMoney = 0;
@@ -41,7 +44,7 @@ namespace Assets.Scripts
         public void LoseHp(float damage)
         {
             health -= damage;
-
+            HealthChanged();
             if (health <= 0)
             {
                 GameOver();

@@ -23,9 +23,8 @@ namespace Assets.Scripts
             healthSlider.value = zombie.health;
         }
 
-        void Update()
+        private void LateUpdate()
         {
-            
             transform.rotation = Quaternion.identity;
         }
     }
