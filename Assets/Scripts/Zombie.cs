@@ -47,9 +47,9 @@ namespace Assets.Scripts
 
         public enum ZombieState
         {
-            //MOVE,
+            STAND,
             MOVE_TO_PLAYER,
-            //RETURN,
+            RETURN,
             ATTACK,
             DEATH
         }
@@ -65,7 +65,8 @@ namespace Assets.Scripts
         private void Start()
         {
             player = FindObjectOfType<Player>();
-            ChangeState(ZombieState.MOVE_TO_PLAYER);
+            ChangeState(ZombieState.STAND);
+            startPosition = transform.position;
         }
 
         private void Update()
@@ -79,16 +80,16 @@ namespace Assets.Scripts
 
             switch (activeState)
             {
-                //case ZombieState.MOVE:
-                //    DoMove();
-                //    break;
-
-                //case ZombieState.RETURN:
-                //    DoReturn();
-                //    break;
+                case ZombieState.STAND:
+                    DoStand();
+                    break;
 
                 case ZombieState.MOVE_TO_PLAYER:
                     DoMoveToPlayer();
+                    break;
+
+                case ZombieState.RETURN:
+                    DoReturn();
                     break;
 
                 case ZombieState.ATTACK:
@@ -106,10 +107,15 @@ namespace Assets.Scripts
             switch (newState)
 
             {
-                //case ZombieState.RETURN:
-                //    movement.targetPosition = startPosition;
-                //    movement.enabled = true;
-                //    break;
+                case ZombieState.STAND:
+                    animator.SetTrigger("Idle");
+                    movement.enabled = false;
+                    break;
+
+                case ZombieState.RETURN:
+                    movement.targetPosition = startPosition;
+                    movement.enabled = true;
+                    break;
 
                 case ZombieState.MOVE_TO_PLAYER:
                     movement.enabled = true;
@@ -127,29 +133,52 @@ namespace Assets.Scripts
             activeState = newState;
         }
 
-        private void DoMoveToPlayer()
+        private void DoStand()
+        {
+            CheckMoveToPlayer();
+        }
+
+        private bool CheckMoveToPlayer()
+        {
+            //проверям радиус
+            if (distanceToPlayer > moveRadius)
+            {
+                return false;
+            }
+
+            //проверям препятствия
+            Vector3 directionToPlayer = player.transform.position - transform.position;
+            Debug.DrawRay(transform.position, directionToPlayer, Color.red);
+
+            LayerMask layerMask = LayerMask.GetMask("Obstacles");
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, directionToPlayer.magnitude, layerMask);
+            if (hit.collider != null)
+            {
+                //есть коллайдер
+                return false;
+
+            }
+
+            //бежать за игроком
+            ChangeState(ZombieState.MOVE_TO_PLAYER);
+            return true;
+
+        }
+
+            private void DoMoveToPlayer()
         {
             if (distanceToPlayer < attackRadius)
             {
                 ChangeState(ZombieState.ATTACK);
                 return;
             }
-            //if (distanceToPlayer > followRadius)
-            //{
-            //    ChangeState(ZombieState.RETURN);
-            //    return;
-            //}
+            if (distanceToPlayer > followRadius)
+            {
+                ChangeState(ZombieState.RETURN);
+                return;
+            }
             movement.targetPosition = player.transform.position;
         }
-
-        //private void DoMove()
-        //{ 
-        //    if (distanceToPlayer < moveRadius)
-        //    {
-        //        activeState = ZombieState.MOVE_TO_PLAYER;
-        //    }
-           
-        //}
 
         private void DoAttack()
         {
@@ -173,31 +202,30 @@ namespace Assets.Scripts
             autoDestroyer.enabled = true;
         }
 
-        private void PickUpChange()
-        {
-            float pickUpChangeRandom = UnityEngine.Random.Range(0, 100);
-            if (pickUpChangeRandom < pickUpChange)
-            {
-                int r = UnityEngine.Random.Range(0, pickUps.Length);
-                Instantiate(pickUps[r], transform.position, Quaternion.identity);
-            }
-            
-        }
-        //private void DoReturn()
+        //private void PickUpChange()
         //{
-        //    if (distanceToPlayer < moveRadius)
+        //    float pickUpChangeRandom = UnityEngine.Random.Range(0, 100);
+        //    if (pickUpChangeRandom < pickUpChange)
         //    {
-        //        ChangeState(ZombieState.MOVE_TO_PLAYER);
-        //        return;
-        //    }
-
-        //    float distanceToStart = Vector3.Distance(transform.position, startPosition);
-        //    if (distanceToStart <= 0.05f)
-        //    {
-        //        ChangeState(ZombieState.MOVE_TO_PLAYER);
-        //        return;
+        //        int r = UnityEngine.Random.Range(0, pickUps.Length);
+        //        Instantiate(pickUps[r], transform.position, Quaternion.identity);
         //    }
         //}
+
+        private void DoReturn()
+        {
+            if (CheckMoveToPlayer())
+            {
+                return;
+            }
+
+            float distanceToStart = Vector3.Distance(transform.position, startPosition);
+            if (distanceToStart <= 0.05f)
+            {
+                ChangeState(ZombieState.STAND);
+                return;
+            }
+        }
 
         private void DamageToPlayer()
         {
@@ -209,7 +237,7 @@ namespace Assets.Scripts
             health -= damage;
             if (health <= 0)
             {
-                PickUpChange();
+                //PickUpChange();
                 isAlive = false;
                 gameObject.GetComponent<Collider2D>().enabled = false;
             }

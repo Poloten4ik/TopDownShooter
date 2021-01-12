@@ -797,6 +797,11 @@ PrefabInstance:
       propertyPath: wayPoints.Array.data[3]
       value: 
       objectReference: {fileID: 1899474545}
+    - target: {fileID: 1106752094446882977, guid: 16bea0b419d86ba49af6a93e282b39ea,
+        type: 3}
+      propertyPath: numberOfZombies
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1106752094879766548, guid: 16bea0b419d86ba49af6a93e282b39ea,
         type: 3}
       propertyPath: wayPoints.Array.data[0]
@@ -817,10 +822,20 @@ PrefabInstance:
       propertyPath: wayPoints.Array.data[3]
       value: 
       objectReference: {fileID: 1899474545}
+    - target: {fileID: 1106752094879766548, guid: 16bea0b419d86ba49af6a93e282b39ea,
+        type: 3}
+      propertyPath: numberOfZombies
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1106752096128398464, guid: 16bea0b419d86ba49af6a93e282b39ea,
         type: 3}
       propertyPath: m_Name
       value: Zombie Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106752096128398464, guid: 16bea0b419d86ba49af6a93e282b39ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1106752096128398479, guid: 16bea0b419d86ba49af6a93e282b39ea,
         type: 3}

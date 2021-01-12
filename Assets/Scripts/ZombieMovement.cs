@@ -45,7 +45,7 @@ namespace Assets.Scripts
             Rotate();
         }
 
-        private void Move()
+        void Move()
         {
             Vector3 zombiePosition = transform.position;
             Vector3 direction = targetPosition - zombiePosition;
@@ -58,20 +58,6 @@ namespace Assets.Scripts
             animator.SetFloat("Speed", direction.magnitude);
 
             rb.velocity = direction * speed;
-
-            //if (Vector2.Distance(transform.position, zombieSpawner.wayPoints[zombieSpawner.wayPointIndex].position) < 3f)
-            //{
-            //    if (zombieSpawner.wayPointIndex < zombieSpawner.wayPoints.Length - 1)
-            //    {
-            //        zombieSpawner.wayPointIndex += 1;
-            //        targetPosition = zombieSpawner.wayPoints[zombieSpawner.wayPointIndex].position;
-            //    }
-            //    else if (zombieSpawner.wayPointIndex >= zombieSpawner.wayPoints.Length)
-            //    {
-            //        zombie.ChangeState(Zombie.ZombieState.MOVE_TO_PLAYER);
-            //    }
-
-            //}
         }
 
         private void Rotate()
