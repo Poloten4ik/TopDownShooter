@@ -10,19 +10,7 @@ namespace Assets.Scripts.Items
         public float explosionRadius;
         public float damage;
         public GameObject explosionPrefab;
-        private Player player;
-        private Zombie zombie;
         public LayerMask damageLayer;
-
-        private void Awake()
-        {
-
-        }
-
-        private void Start()
-        {
-            player = FindObjectOfType<Player>();
-        }
 
         private void Explode()
         {
@@ -33,7 +21,7 @@ namespace Assets.Scripts.Items
             {
                 collider.gameObject.SendMessage("LoseHp", damage);
             }
-           
+
         }
 
         private void OnDrawGizmos()

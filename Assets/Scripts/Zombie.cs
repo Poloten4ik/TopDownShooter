@@ -148,8 +148,6 @@ namespace Assets.Scripts
                 return false;
             }
 
-
-
             //проверям препятствия
             Vector3 directionToPlayer = player.transform.position - transform.position;
             Debug.DrawRay(transform.position, directionToPlayer, Color.red);

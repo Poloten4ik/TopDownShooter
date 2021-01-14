@@ -17,7 +17,10 @@ namespace Assets.Scripts
         public bool isPlayerAlive = true;
 
         public Bullet bulletPrefab;
+        public Grenade grenadePrefab;
         public GameObject shootPosition;
+        public GameObject grenadePosition;
+
 
         float nextFire;
 
@@ -39,6 +42,8 @@ namespace Assets.Scripts
             {
                 nextFire -= Time.deltaTime;
             }
+
+            ThrowGrenade();
         }
 
         public void LoseHp(float damage)
@@ -82,6 +87,14 @@ namespace Assets.Scripts
                 animator.SetTrigger("Shoot");
                 Instantiate(bulletPrefab, shootPosition.transform.position, transform.rotation);
                 nextFire = fireRate;
+            }
+        }
+
+        private void ThrowGrenade()
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                Instantiate(grenadePrefab, grenadePosition.transform.position, transform.rotation);
             }
         }
     }

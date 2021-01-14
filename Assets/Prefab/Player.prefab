@@ -155,6 +155,9 @@ MonoBehaviour:
   isPlayerAlive: 1
   bulletPrefab: {fileID: 4915152715005954697, guid: cc842ce5e4abe1b41ab6b763e57ba9c1,
     type: 3}
+  grenadePrefab: {fileID: 4312120649370513850, guid: 301c90d26c4cda046b4669f65f04a78a,
+    type: 3}
+  throwForce: 0
   shootPosition: {fileID: 5386828999779836720}
 --- !u!95 &5386828999119730428
 Animator:
