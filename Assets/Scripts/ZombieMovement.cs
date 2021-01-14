@@ -55,7 +55,7 @@ namespace Assets.Scripts
                 direction = direction.normalized;
             }
 
-            animator.SetFloat("Speed", direction.magnitude);
+            
 
             rb.velocity = direction * speed;
         }

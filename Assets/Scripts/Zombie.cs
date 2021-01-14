@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Pathfinding;
 
 namespace Assets.Scripts
 {
@@ -35,7 +36,8 @@ namespace Assets.Scripts
         private AutoDestroyer autoDestroyer;
 
         public ZombieState activeState;
-        private ZombieMovement movement;
+        private AIPath aiPath;
+        AIDestinationSetter aIDestinationSetter;
         private Rigidbody2D rb;
 
         private ZombieSpawner zombieSpawner;
@@ -58,9 +60,10 @@ namespace Assets.Scripts
         private void Awake()
         {
             animator = GetComponent<Animator>();
-            movement = GetComponent<ZombieMovement>();
+            aiPath = GetComponent<AIPath>();
             rb = GetComponent<Rigidbody2D>();
             autoDestroyer = GetComponent<AutoDestroyer>();
+            aIDestinationSetter = GetComponent<AIDestinationSetter>();
 
         }
 
@@ -85,13 +88,11 @@ namespace Assets.Scripts
                 case ZombieState.STAND:
                     DoStand();
                     break;
-
-                case ZombieState.MOVE_TO_PLAYER:
-                    DoMoveToPlayer();
-                    break;
-
                 case ZombieState.RETURN:
                     DoReturn();
+                    break;
+                case ZombieState.MOVE_TO_PLAYER:
+                    DoMove();
                     break;
 
                 case ZombieState.ATTACK:
@@ -111,25 +112,26 @@ namespace Assets.Scripts
             {
                 case ZombieState.STAND:
                     animator.SetTrigger("Idle");
-                    movement.enabled = false;
+                    aiPath.enabled = false;
                     break;
 
                 case ZombieState.RETURN:
-                    movement.targetPosition = startPosition;
-                    movement.enabled = true;
+                   
+                    aiPath.enabled = true;
                     break;
 
                 case ZombieState.MOVE_TO_PLAYER:
-                    movement.enabled = true;
+                    aIDestinationSetter.target = player.transform;
+                    aiPath.enabled = true;
                     break;
 
                 case ZombieState.ATTACK:
-                    movement.enabled = false;
+                    aiPath.enabled = false;
                     break;
 
                 case ZombieState.DEATH:
                     animator.SetTrigger("Death");
-                    movement.enabled = false;
+                    aiPath.enabled = false;
                     break;
             }
             activeState = newState;
@@ -138,6 +140,25 @@ namespace Assets.Scripts
         private void DoStand()
         {
             CheckMoveToPlayer();
+        }
+
+        private void DoMove()
+        {
+            if (distanceToPlayer < attackRadius)
+            {
+                ChangeState(ZombieState.ATTACK);
+                animator.SetFloat("Speed", 0);
+                return;
+            }
+
+            if(distanceToPlayer > followRadius) 
+            {
+                ChangeState(ZombieState.RETURN);
+                animator.SetFloat("Speed", 0);
+                return;
+                  
+            }
+            animator.SetFloat("Speed", 1);
         }
 
         private bool CheckMoveToPlayer()
@@ -173,26 +194,12 @@ namespace Assets.Scripts
 
         }
 
-            private void DoMoveToPlayer()
-        {
-            if (distanceToPlayer < attackRadius)
-            {
-                ChangeState(ZombieState.ATTACK);
-                return;
-            }
-            if (distanceToPlayer > followRadius)
-            {
-                ChangeState(ZombieState.RETURN);
-                return;
-            }
-            movement.targetPosition = player.transform.position;
-        }
-
         private void DoAttack()
         {
             if (distanceToPlayer > attackRadius)
             {
                 ChangeState(ZombieState.MOVE_TO_PLAYER);
+                print("Attack");
                 return;
             }
           
