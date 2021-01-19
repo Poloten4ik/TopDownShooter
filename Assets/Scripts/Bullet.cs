@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Items;
+using Lean.Pool;
 
 namespace Assets.Scripts
 {
@@ -19,19 +20,19 @@ namespace Assets.Scripts
             rb = GetComponent<Rigidbody2D>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             rb.velocity = -transform.up * speed;
         }
 
         private void OnBecameInvisible()
         {
-            Destroy(gameObject);
+            LeanPool.Despawn(gameObject);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Destroy(gameObject);  
+            LeanPool.Despawn(gameObject);  
         }
     }
 

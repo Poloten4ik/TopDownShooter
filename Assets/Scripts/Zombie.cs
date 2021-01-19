@@ -269,6 +269,17 @@ namespace Assets.Scripts
 
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, followRadius);
+
+            Gizmos.color = Color.magenta;
+            Vector3 lookDirecttion = -transform.up;
+           
+            Vector3 leftViewVector = Quaternion.AngleAxis(viewAngle / 2 , Vector3.forward) * lookDirecttion;
+            Vector3 rightViewVector = Quaternion.AngleAxis(-viewAngle / 2, Vector3.forward) * lookDirecttion;
+
+
+            Gizmos.DrawRay(transform.position, leftViewVector * followRadius);
+            Gizmos.DrawRay(transform.position, rightViewVector * followRadius);
+
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

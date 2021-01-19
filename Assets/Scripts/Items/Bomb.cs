@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
+using Lean.Pool;
 
 namespace Assets.Scripts.Items
 {
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Items
 
         private void Explode()
         {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            LeanPool.Spawn(explosionPrefab, transform.position, Quaternion.identity);
 
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, damageLayer);
             foreach (Collider2D collider in colliders)
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Items
             if (collision.gameObject.CompareTag("Bullet"))
             {
                 Explode();
-                Destroy(gameObject);
+                LeanPool.Despawn(gameObject);
             }
         }
 

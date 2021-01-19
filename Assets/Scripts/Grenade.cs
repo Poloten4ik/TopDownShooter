@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Pool;
 
 public class Grenade : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class Grenade : MonoBehaviour
 
     private void Explode()
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        LeanPool.Spawn(explosionPrefab, transform.position, Quaternion.identity);
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, damageLayerGranade);
         foreach (Collider2D collider in colliders)

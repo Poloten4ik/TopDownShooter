@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Lean.Pool;
 
 namespace Assets.Scripts
 {
@@ -58,7 +59,7 @@ namespace Assets.Scripts
             {
                 yield return new WaitForSeconds(enemyFireDuration);
                 animatorEnemy.SetTrigger("ShootEnemy");
-                Instantiate(enemyBulletPrefab, shootPosition.transform.position, transform.rotation);
+                LeanPool.Spawn(enemyBulletPrefab, shootPosition.transform.position, transform.rotation);
             }
         }
 
@@ -73,7 +74,7 @@ namespace Assets.Scripts
                 gameObject.GetComponent<Collider2D>().isTrigger = true;
                 isEnemyAlive = false;
 
-                Instantiate(prefabPickUp, transform.position, Quaternion.identity);
+                LeanPool.Spawn(prefabPickUp, transform.position, Quaternion.identity);
                 StopAllCoroutines();
             }
         }

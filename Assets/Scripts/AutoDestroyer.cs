@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Pool;
 
 namespace Assets.Scripts
 {
@@ -10,7 +11,7 @@ namespace Assets.Scripts
 
         void Start()
         {
-            Destroy(gameObject, destroyDelay);
+            LeanPool.Despawn(gameObject, destroyDelay);
         }
 
         void Update()

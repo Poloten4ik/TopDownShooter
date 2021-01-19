@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using Lean.Pool;
 
 namespace Assets.Scripts
 {
@@ -85,7 +86,7 @@ namespace Assets.Scripts
             if (isPlayerAlive)
             {
                 animator.SetTrigger("Shoot");
-                Instantiate(bulletPrefab, shootPosition.transform.position, transform.rotation);
+                LeanPool.Spawn(bulletPrefab, shootPosition.transform.position, transform.rotation);
                 nextFire = fireRate;
             }
         }
@@ -94,7 +95,7 @@ namespace Assets.Scripts
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                Instantiate(grenadePrefab, grenadePosition.transform.position, transform.rotation);
+                LeanPool.Spawn(grenadePrefab, grenadePosition.transform.position, transform.rotation);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Pool;
 
 public class ZombieSpawner : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class ZombieSpawner : MonoBehaviour
         while (numberOfZombies > countOfZombies)
         {
             yield return new WaitForSeconds(spawnDuration);
-            Instantiate(zombiePrefab, transform.position, Quaternion.identity);
+            LeanPool.Spawn(zombiePrefab, transform.position, Quaternion.identity);
             countOfZombies += 1;
         }
        
