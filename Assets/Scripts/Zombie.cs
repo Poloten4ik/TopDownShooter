@@ -112,7 +112,7 @@ namespace Assets.Scripts
             {
                 case ZombieState.STAND:
                     animator.SetTrigger("Idle");
-                    aiPath.enabled = false;
+                   aiPath.enabled = false;
                     break;
 
                 case ZombieState.RETURN:

@@ -10,6 +10,16 @@ namespace Assets.Scripts
 {
     public class Player : MonoBehaviour
     {
+        private static Player instance;
+
+        public static Player Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
         public Action HealthChanged = delegate { };
 
         public float fireRate = 1f;
@@ -29,6 +39,14 @@ namespace Assets.Scripts
 
         private void Awake()
         {
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            instance = this;
+
             animator = GetComponent<Animator>();
         }
 
@@ -63,7 +81,7 @@ namespace Assets.Scripts
         {
             health += hp;
         }
-        
+
         public void AddMoney(float money)
         {
             yourMoney += money;
@@ -96,6 +114,14 @@ namespace Assets.Scripts
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 LeanPool.Spawn(grenadePrefab, grenadePosition.transform.position, transform.rotation);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (this == Instance)
+            {
+                instance = null;
             }
         }
     }

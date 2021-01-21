@@ -13,7 +13,7 @@ namespace Assets.Scripts.UI
 
         public void Start()
         {
-            player = FindObjectOfType<Player>();
+            player = Player.Instance;
             player.HealthChanged += UpdateHealth;
 
             playerHealth.maxValue = player.health;

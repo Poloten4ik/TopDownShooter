@@ -11,6 +11,7 @@ namespace Assets.Scripts
         Rigidbody2D rb;
         Animator animator;
         Player player;
+        public Joystick joystick;
 
         private void Awake()
         {
@@ -29,8 +30,12 @@ namespace Assets.Scripts
         {
             if (player.isPlayerAlive)
             {
-                float inputX = Input.GetAxis("Horizontal");
-                float inputY = Input.GetAxis("Vertical");
+                //float inputX = Input.GetAxis("Horizontal");
+                //float inputY = Input.GetAxis("Vertical");
+
+
+                float inputX = joystick.Horizontal;
+                float inputY = joystick.Vertical;
 
                 Vector2 direction = new Vector2(inputX, inputY);
 
