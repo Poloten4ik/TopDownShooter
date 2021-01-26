@@ -11,7 +11,7 @@ namespace Assets.Scripts
 
         void Start()
         {
-            LeanPool.Despawn(gameObject, destroyDelay);
+            Destroy(gameObject, destroyDelay);
         }
 
         void Update()

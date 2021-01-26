@@ -37,7 +37,7 @@ namespace Assets.Scripts.Items
             if (collision.gameObject.CompareTag("Bullet"))
             {
                 Explode();
-                LeanPool.Despawn(gameObject);
+                Destroy(gameObject);
             }
         }
 

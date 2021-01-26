@@ -27,12 +27,17 @@ namespace Assets.Scripts
 
         private void OnBecameInvisible()
         {
-            LeanPool.Despawn(gameObject);
+            if (gameObject.activeSelf)
+            {
+                LeanPool.Despawn(gameObject);
+            }
+            
+            
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            LeanPool.Despawn(gameObject);  
+            LeanPool.Despawn(gameObject);
         }
     }
 
